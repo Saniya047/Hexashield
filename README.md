@@ -50,57 +50,61 @@ Crypto & Verification:
 
 ## 🚀 How to Run on a Local Network
 
-🖥️ System Setup – 3 Machines:
-- Cloud PC – Hosts backend and database
-- Alice – Auditor
-- Bob – Auditee (storage node)
+### 🖥️ System Setup – 3 Machines
+- **Cloud PC** – Hosts the backend and database.
+- **Alice (Auditor)** – Verifies integrity.
+- **Bob (Auditee)** – Stores files.
 
-🔁 Step 1: Clone the Repository (All PCs)
-git clone https://github.com/Saniya047/HexaShield.git
+### 🔁 Step 1: Clone the Repository (All PCs)
+```bash
+git clone https://github.com/yourusername/HexaShield.git
+```
 
-🌐 Step 2: Backend & Database Configuration
-- Ensure all machines are on the same Wi-Fi network.
-- On Alice and Bob:
-  - Start MongoDB.
-  - Start backend using Cloud PC's IP (not localhost).
+### 🌐 Step 2: Backend & Database Configuration
+- Ensure all systems are on the same local Wi-Fi network.
+- On **Alice** and **Bob**:
+    - Start MongoDB.
+    - Start backend server using **Cloud PC’s IP**.
 
-Replace all 'localhost' references with Cloud IP in:
-- .env
-- Verification.tsx
-- LocalHome.tsx
+#### Replace all `localhost` references with **Cloud IP** in:
+- `.env`
+- `Verification.tsx`
+- `LocalHome.tsx`
 
-📁 Step 3: Cloud PC Configuration
+### 📁 Step 3: Cloud PC Configuration
+#### Edit `runScript.js`:
+- Line 20: Path to `SetupTagGen.sh`
+- Line 21 & 46: Path to `15MBData.csv`
+- Line 71 & 102: Path to `Admin-Cloud` folder
+- Line 47 & 103: Output path for Bob's file (`Bob.sh`)
+- Line 72: Path to `Auditor` folder
 
-Update runScript.js:
-- Line 20: Path to SetupTagGen.sh
-- Line 21 & 46: Path to 15MBData.csv
-- Line 71 & 102: Path to Admin-Cloud folder
-- Line 47 & 103: Output destination for Bob.sh
-- Line 72: Path to Auditor folder
+#### Edit `SetupTagGen.sh`:
+- Replace all `dataaudit` paths with your correct local path
 
-Update SetupTagGen.sh:
-- Replace all instances of 'dataaudit' with your local path.
+### 📁 Step 4: Alice & Bob Configuration
 
-📁 Step 4: Alice & Bob Configuration
+#### Alice (Auditor):
+- `runScript.js`: Update line 132 & 194 with your local file path
+- `alice.sh`:
+    - Set path to `dataaudit` folder
+    - Set **Bob’s IP address**
 
-Alice (Auditor):
-- Update runScript.js: Line 132 & 194 with your local file path.
-- Edit alice.sh:
-  - Set path to dataaudit folder.
-  - Set Bob's IP address.
+#### Bob (Auditee):
+- `runScript.js`: Update line 132 & 194 with your local file path
+- `bob.sh`:
+    - Set path to `dataaudit` folder
+    - Set **Alice’s IP address**
 
-Bob (Auditee):
-- Update runScript.js: Line 132 & 194 with your local file path.
-- Edit bob.sh:
-  - Set path to dataaudit folder.
-  - Set Alice’s IP address.
-
-🔐 Step 5: Network Permissions (All PCs)
+### 🔐 Step 5: Network Permissions (All PCs)
+```bash
 chmod -R +x Demo/
 sudo ufw allow 22224
 sudo ufw allow 22223
+```
 
-🖥️ Step 6: Start Backend and Frontend (All PCs)
+### 🖥️ Step 6: Start Backend and Frontend (All PCs)
+```bash
 # Terminal 1
 cd backend
 npm install
@@ -110,29 +114,33 @@ npm start
 cd frontend
 npm install
 npm run dev
+```
 
-✅ Step 7: Workflow Execution
+### ✅ Step 7: Workflow Execution
 
-1. Register Users:
-   - Cloud PC: Register as `cloud`
-   - Alice & Bob: Register as `local`
+1. **Register Users**
+    - Cloud PC: Register as `cloud`
+    - Alice & Bob: Register as `local`
 
-2. Cloud PC:
-   - Upload a file and generate metadata.
-   - Send file to Bob.
-   - Share verification data with Alice and Bob.
-   - Click “Send Verification.”
+2. **Cloud PC**
+    - Upload a file and generate metadata
+    - Send file to **Bob PC**
+    - Distribute verification data to **Alice PC** and **Bob PC**
+    - Click **Send Verification**
 
-3. Bob PC:
-   - Run bob.sh to initiate communication.
+3. **Bob PC**
+    - Run `bob.sh` to start process
+    - Sends message to **Alice**
 
-4. Alice PC:
-   - Run alice.sh to perform the audit.
-   - Result auto-sent to cloud and visible on the dashboard.
+4. **Alice PC**
+    - Run `alice.sh` to start auditing
+    - Results auto-sent to Cloud and visible in dashboard
 
 ---
 
-✅ You’re All Set!
-HexaShield is now live on your local network—delivering real-time decentralized file integrity verification with ease.
+✅ **You’re All Set!**
+You’ve successfully deployed HexaShield – a secure, decentralized, and real-time file integrity verification system across your local network.
 
-📌 Questions? Open an issue on the GitHub repository.
+---
+
+📌 For more details, reach out or open an issue in the repository!
